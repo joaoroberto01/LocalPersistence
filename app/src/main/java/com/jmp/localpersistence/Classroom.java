@@ -3,6 +3,7 @@ package com.jmp.localpersistence;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -10,17 +11,32 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
-public class Classroom extends ArrayList<Student>{
+public class Classroom {
     private String name;
+    private List<Student> students = new ArrayList<>();
+
+    public Classroom(String name){
+        this.name = name;
+    }
 
     public String getName() {
         return name;
     }
 
-    public Classroom(String name){
-        this.name = name;
+    public void add(Student student){
+        students.add(student);
+    }
+
+    public Student get(int index){
+        return students.get(index);
+    }
+
+    public int size(){
+        return students.size();
     }
 
     public static void saveOfflineClasses(Activity activity, List<Classroom> classroom) {
@@ -39,9 +55,7 @@ public class Classroom extends ArrayList<Student>{
             Gson gson = new Gson();
             SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
             String json = sharedPreferences.getString("students", "");
-            Type type = new TypeToken<Classroom>(){}.getType();
-
-            Log.i("JSON",json);
+            Type type = new TypeToken<List<Classroom>>(){}.getType();
 
             return gson.fromJson(json, type);
         }catch (Exception e){
@@ -49,4 +63,6 @@ public class Classroom extends ArrayList<Student>{
             return new ArrayList<>();
         }
     }
+
+
 }

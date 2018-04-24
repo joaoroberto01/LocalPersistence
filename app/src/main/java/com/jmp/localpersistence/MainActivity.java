@@ -1,5 +1,7 @@
 package com.jmp.localpersistence;
 
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -35,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Classroom classroom1 = new Classroom("3º INFO A");
                 Classroom classroom2 = new Classroom("4º INFO A");
 
-                for (int i = 0; i < 101; i++) {
+                for (int i = 0; i < (PersistenceTask.LENGTH / 2) - 1; i++) {
                     classroom1.add(new Student("Paula Tejando "+String.valueOf(i),String.valueOf(i),"24"));
                     classroom2.add(new Student("Paula Norego "+String.valueOf(i),String.valueOf(i),"24"));
                 }
